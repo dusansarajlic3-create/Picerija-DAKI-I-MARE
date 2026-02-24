@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daki & Mare | Pizzeria & Sandwich Bar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff9f1c;
+            --dark: #2d3436;
+            --light: #ffffff;
+            --bg: #f8f9fa;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--dark); margin: 0; scroll-behavior: smooth; }
+
+        /* PLUTAJUĆE DUGME ZA POZIV */
+        .mobile-call { position: fixed; bottom: 20px; right: 20px; background: #2ecc71; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 9999; font-size: 28px; border: 3px solid white; transition: 0.3s; }
+        .mobile-call:hover { transform: scale(1.1); }
+
+        /* NAVIGACIJA */
+        .nav-container { position: fixed; top: 20px; left: 20px; z-index: 1000; }
+        .menu-toggle { background: var(--light); border: none; padding: 15px; border-radius: 12px; cursor: pointer; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 5px; }
+        .bar { width: 25px; height: 3px; background: var(--primary); border-radius: 2px; }
+        .nav-menu { position: absolute; top: 70px; left: 0; background: var(--light); padding: 20px; border-radius: 15px; box-shadow: var(--shadow); display: none; min-width: 250px; }
+        .nav-menu.active { display: block; animation: fadeInUp 0.3s ease; }
+        .nav-menu a { display: block; color: var(--dark); text-decoration: none; padding: 12px 0; font-weight: bold; border-bottom: 1px solid #eee; }
+
+        /* HERO */
+        header { height: 65vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1000&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--light); padding: 20px; }
+        header h1 { font-family: 'Oswald', sans-serif; font-size: clamp(3rem, 8vw, 5rem); margin: 0; text-shadow: 2px 4px 10px rgba(0,0,0,0.5); }
+        header p { font-size: 1.2rem; letter-spacing: 2px; margin-top: 10px; }
+
+        .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
+        
+        /* FEATURES */
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center; margin-bottom: 40px; }
+        .feat-item { background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow); }
+        .feat-item h3 { font-family: 'Oswald', sans-serif; color: var(--primary); margin-top: 0; }
+
+        .section-title { font-family: 'Oswald', sans-serif; font-size: 2.5rem; text-align: center; margin: 60px 0 30px; color: var(--dark); border-bottom: 3px solid var(--primary); display: inline-block; width: 100%; padding-bottom: 10px; text-transform: uppercase; }
+
+        /* KARTICE */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; }
+        .card { background: var(--light); padding: 25px; border-radius: 15px; box-shadow: var(--shadow); transition: 0.3s; border: 1px solid #efefef; position: relative; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .badge { position: absolute; top: -10px; right: 15px; background: #e74c3c; color: white; padding: 4px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; }
+
+        .card-title { font-family: 'Oswald', sans-serif; font-size: 1.6rem; color: var(--dark); margin-bottom: 5px; text-transform: uppercase; }
+        .ingredients { font-size: 0.85rem; color: #7f8c8d; margin-bottom: 15px; font-style: italic; min-height: 40px; }
+
+        .price-list { border-top: 1px solid #eee; padding-top: 15px; margin-top: auto; }
+        .p-row { display: flex; justify-content: space-between; padding: 5px 0; font-weight: 700; }
+        .p-size { color: var(--primary); font-family: 'Oswald', sans-serif; }
+
+        .warning { background: #ffeaa7; padding: 20px; text-align: center; font-weight: bold; border-radius: 12px; margin-bottom: 40px; border-left: 6px solid #f1c40f; }
+
+        /* RECENZIJE */
+        .reviews-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .review-card { background: #fff; padding: 25px; border-radius: 15px; box-shadow: var(--shadow); border-bottom: 4px solid var(--primary); }
+        .stars { color: #f1c40f; margin-bottom: 10px; }
+
+        /* MAPA */
+        .map-container { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; margin: 40px 0; box-shadow: var(--shadow); border: 4px solid white; }
+
+        footer { background: var(--dark); color: white; padding: 60px 20px; text-align: center; }
+        .btn { background: var(--primary); color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-block; margin: 10px; font-family: 'Oswald', sans-serif; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; transform: scale(1.05); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <a href="tel:0656724780" class="mobile-call">📞</a>
+
+    <div class="nav-container">
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </button>
+        <div class="nav-menu" id="navMenu">
+            <a href="#o-nama" onclick="toggleMenu()">🏠 O nama</a>
+            <a href="#pice" onclick="toggleMenu()">🍕 Sve Pice</a>
+            <a href="#ostalo" onclick="toggleMenu()">🌯 Sendviči & Tortilje</a>
+            <a href="#slatko" onclick="toggleMenu()">🥞 Palačinke</a>
+            <a href="#utisci" onclick="toggleMenu()">⭐ Utisci</a>
+            <a href="#kontakt" onclick="toggleMenu()">📞 Kontakt</a>
+        </div>
+    </div>
+
+    <header>
+        <h1>DAKI & MARE</h1>
+        <p>NAJBOLJA PICA U PADINSKOJ SKELI</p>
+        <a href="#pice" class="btn" style="margin-top: 20px;">OTVORI MENI</a>
+    </header>
+
+    <div class="container">
+        
+        <div class="features" id="o-nama">
+            <div class="feat-item">
+                <h3>🍕 SVEŽI SASTOJCI</h3>
+                <p>Kvalitet nam je na prvom mestu. Svaka pica se pravi od pažljivo biranih namirnica.</p>
+            </div>
+            <div class="feat-item">
+                <h3>🚀 BRZA DOSTAVA</h3>
+                <p>Dostavljamo na vašu adresu u Padinskoj Skeli i okolini. Pozovite i uživajte!</p>
+            </div>
+            <div class="feat-item">
+                <h3>🧤 RUČNA IZRADA</h3>
+                <p>Naši majstori spremaju svako jelo sa ljubavlju i dugogodišnjim iskustvom.</p>
+            </div>
+        </div>
+
+        <div class="warning">⚠️ NAPOMENA: Zbog tržišnih promena, cene su informativnog karaktera. Proverite cene telefonom!</div>
+
+        <h2 class="section-title" id="pice">PICE (32cm / 42cm / 50cm)</h2>
+        <div class="menu-grid">
+            <div class="card"><div class="card-title">MARGERITA</div><div class="ingredients">pizza sos, kačkavalj, origano</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>630 / 830 / 1000 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">VESUVIO</div><div class="ingredients">pizza sos, šunka, kačkavalj, origano</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>690 / 850 / 1100 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">KAPRIKOZA <span class="badge">POPULARNO</span></div><div class="ingredients">sos, pečurke, šunka, kačkavalj, origano</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>730 / 950 / 1200 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">SPECIJAL</div><div class="ingredients">sos, kač., pečenica, kulen, pavlaka, origano</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>800 / 1070 / 1300 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">DAKI <span class="badge">PREPORUKA</span></div><div class="ingredients">sos, kač., piletina, feta, parmezan, origano, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>810 / 1070 / 1300 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">MARE <span class="badge">BOGATA</span></div><div class="ingredients">sos, kač., pečurke, kulen, suvi vrat, pečenica, jaje, pavlaka, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>920 / 1190 / 1500 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">VULKANO</div><div class="ingredients">dupla kora, sos, šunka, suvi vrat, kulen, kačkavalj</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>990 / 1200 / 1500 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">ŠONE</div><div class="ingredients">sos, kač., goveđa pršuta, goveđi kulen, feferone, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>990 / 1200 / 1500 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">DIAVOLO</div><div class="ingredients">sos, kač., kulen, pečurke, crveni luk, feferone, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>920 / 1190 / 1480 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">VEGE</div><div class="ingredients">sos, kač., pečurke, salata lola, paradajz, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>920 / 950 / 1200 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">PROSCIUTTO</div><div class="ingredients">sos, kač., pelat, rukola, čeri, parmezan, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>920 / 1190 / 1500 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">PAESANO</div><div class="ingredients">sos, kač., šunka, pečurke, panceta, feta, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>920 / 1190 / 1480 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">QUATRO STAGIONI</div><div class="ingredients">sos, kač., pečurke, šunka, jaje, kulen, masline</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span>920 / 1190 / 1480 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">NUTELLA PIZZA</div><div class="ingredients">nutella, vanila, lešnik, višnja-banana, plazma</div><div class="price-list"><div class="p-row"><span>32/42 cm:</span> <span>1180 / 1480 RSD</span></div></div></div>
+        </div>
+
+        <h2 class="section-title" id="ostalo">SENDVIČI & TORTILJE</h2>
+        <div class="menu-grid">
+            <div class="card"><div class="card-title">INDEX SENDVIČ</div><div class="ingredients">Šunka, sir, pečurke, prilozi po želji</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span class="p-size">350 RSD</span></div></div></div>
+            <div class="card"><div class="card-title">PILEĆA TORTILJA</div><div class="ingredients">Grilovana piletina, povrće, namazi</div><div class="price-list"><div class="p-row"><span>CENA:</span> <span class="p-size">420 RSD</span></div></div></div>
+        </div>
+
+        <h2 class="section-title" id="slatko">PALAČINKE</h2>
+        <div class="menu-grid">
+            <div class="card"><div class="card-title">NUTELLA / EUROKREM</div><div class="ingredients">Plazma, orasi, džem, dodaci po želji</div><div class="price-list"><div class="p-row"><span>CENA OD:</span> <span class="p-size">200 RSD</span></div></div></div>
+        </div>
+
+        <h2 class="section-title" id="utisci">UTISCI GOSTIJU</h2>
+        <div class="reviews-container">
+            <div class="review-card"><div class="stars">★★★★★</div><p>"Najbolja hrana u Skeli, pica Mare je vrh!"</p><p><strong>- Stefan K.</strong></p></div>
+            <div class="review-card"><div class="stars">★★★★★</div><p>"Brza dostava i uvek vruće. Preporuka za tortilje!"</p><p><strong>- Marija L.</strong></p></div>
+        </div>
+    </div>
+
+    <footer id="kontakt">
+        <h2>LOKACIJA & KONTAKT</h2>
+        <p>📍 Padinska Skela 1, Beograd</p>
+        <p>📞 065 6724780</p>
+        <p>⏰ Pon-Pet: 09-22h | Sub: 15-22h</p>
+        <a href="https://maps.google.com" target="_blank" class="btn" style="background:#4285F4">GOOGLE MAPS</a>
+        <a href="tel:0656724780" class="btn">POZOVI ZA DOSTAVU</a>
+    </footer>
+
+    <script>function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }</script>
+</body>
+</html>
